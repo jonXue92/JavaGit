@@ -7,3 +7,5 @@ The codes here are very basic, thank you for your reading.
 2. **BasicAlgorithm**: The useful codes while learning the JiuZhang Basic Algorithm(Java) course.
 
 3. **JavaLessons**: The codes while learning the Java courses of Zhejiang University on MOOC.
+
+4. **LessonsNotes**: The notes while learning the Java courses of Zhejiang University on MOOC.
