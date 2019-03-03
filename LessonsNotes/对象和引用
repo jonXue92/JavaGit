@@ -1,0 +1,63 @@
+Java中String s = new String("123")究竟创建了几个对象
+
+答案是两个
+
+把上面这行代码分成String str、=、"abc"和new String()四部分来看待。String str只是定义了一个名为str的String类型的变量，因此它并没有创建对象；=是对变量str进行初始化，将某个对象的引用（或者叫句柄）赋值给它，显然也没有创建对象；现在只剩下new String("abc")了。new String("abc")又能被看成"abc"和new String()
+
+来看一下调用了的String的构造器：  
+
+public String(String original) {  //other code ...  }   大家都知道，我们常用的创建一个类的实例（对象）的方法有以下两种:
+
+一、使用new创建对象。 
+
+二、调用Class类的newInstance方法，利用反射机制创建对象。
+
+我们正是使用new调用了String类的上面那个构造器方法创建了一个对象，并将它的引用赋值给了str变量。同时我们注意到，被调用的构造器方法接受的参数也是一个String对象，这个对象正是"abc"。由此我们又要引入另外一种创建String对象的方式的讨论——引号内包含文本。
+
+这种方式是String特有的，并且它与new的方式存在很大区别。  
+
+String str="abc";  
+
+这行代码创建了一个String对象。  
+
+String a="abc";  String b="abc";   
+
+这里还是一个。  
+
+String a="ab"+"cd";   
+
+这里是三个。  
+
+所有的字符串都是String对象,由于字符串文字的大量使用,**java**中为了节省时间,在编译阶段,**会把字符串文字放在字符串池中,字符串池的一个好处就是可以把相同的字符串合并,占用一个空间**,
+
+JAVA虚拟机（JVM）会创建一片的内存空间专门存入string对象。我们把这片内存空间叫做字符串池，其中保存着很多String对象，并且可以被共享使用，因此它提高了效率。由于String类是final的，它的值一经创建就不可改变，因此我们不用担心String对象共享而带来程序的混乱。字符串池由String类维护，我们可以调用intern()方法来访问字符串池。  
+
+我们再回头看看String a="abc";，这行代码被执行的时候，JAVA虚拟机首先在字符串池中查找是否已经存在了值为"abc"的这么一个对象，它的判断依据是String类equals(Object obj)方法的返回值。如果有，则不再创建新的对象，直接返回已存在对象的引用；如果没有，则先创建这个对象，然后把它加入到字符串池中，再将它的引用返回。
+
+***只有使用引号包含文本的方式创建的String对象之间使用“+”连接产生的新对象才会被加入字符串池中。对于所有包含new方式新建对象（包括null）的“+”连接表达式，它所产生的新对象都不会被加入字符串池中，***对此我们不再赘述。因此我们**提倡大家用引号包含文本的方式来创建String对象以提高效率，实际上这也是我们在编程中常采用的。**
+
+栈（stack）：主要保存基本类型（或者叫内置类型）（char、byte、short、int、long、float、double、boolean）和对象的引用，数据可以共享，速度仅次于寄存器（register），快于堆。 
+
+堆（heap）：用于存储对象
+
+
+
+看： 
+String   s= "Hello "; 
+s= "Java "; 
+String   s1= "Hello "; 
+String   s2=new   String( "Hello "); 
+
+String   s= "Hello ";当jvm看到 "Hello "，在string池创建string对象存储它，并将他的引用返回给s。 
+s= "Java "，当jvm看到 "Java "，在string池创建新的string对象存储它，再把新建的string对象的引用返回给s。而原先的 "Hello "仍然在string池内。没有消失，他是不能被修改的。 所以我们仅仅是改变了s的引用，而没有改变他所引用的对象，因为string对象的值是不能被修改的。 
+
+String   s1= "Hello ";jvm首先在string池内里面看找不找到字符串 "Hello ",找到,返回他的引用给s1，否则,创建新的string对象，放到string池里。这里由于s= "Hello "了,对象已经被引用，所以依据规则s和s1都是引用同一个对象。所以s==s1将返回true。(==,对于非基本类型，是比较两引用是否引用内存中的同一个对象) 
+
+String   s2=String( "Hello ");jvm首先在string池内里面看找不找到字符串 "Hello ",找到,不做任何事情，否则,创建新的string对象，放到string池里面。由于遇到了new，还会在内存上（不是string池里面）创建string对象存储 "Hello "，并将内存上的（不是string池内的）string对象返回给s2。所以s==s2将返回false，不是引用同一个对象。 
+
+
+
+
+首先我们要明白两个概念,引用变量和对象,*对象*一般通过new在*堆*中创建,**s只是一个引用变量**。
+
+String s = new String("123")实际上是"123"本身就是字符串池中的一个对象,在运行 new String()时,把字符串池即pool中的字符串"123"复制到堆中,并把这个对象的应用交给s,所以创建了两个String对象,一个在pool(字符串池)中,一个在堆中。
