@@ -18,8 +18,14 @@ Content:
 
 **chapter9**: Interval, Array & Matrix
 
+**backpack**
+
 **big data**
 
+**binary Indexed Tree**
+
 **bit operation**
+
+**matrix Fast Exponentiation**
 
 **segment Tree**

@@ -8,4 +8,6 @@ The codes here are very basic, thank you for your reading.
 
 3. **JavaLessons**: The codes while learning the Java courses of Zhejiang University on MOOC.
 
-4. **LessonsNotes**: The notes while learning the Java courses of Zhejiang University on MOOC.
+4. **learning**: The other codes while learning Java.
+
+5. **LessonsNotes**: The notes while learning the Java courses of Zhejiang University on MOOC.
